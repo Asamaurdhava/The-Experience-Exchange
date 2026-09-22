@@ -1,0 +1,211 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TEE Prototype Evidence</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --paper:#EEF3EF; --surface:#FFFFFF; --surface-2:#E3ECE6; --ink:#15211C; --muted:#56655E; --line:#C9D6CE;
+  --green:#12463A; --green-2:#1E6B56; --gold:#B8862A; --gold-soft:#F4E7C8; --up:#1F8A55; --down:#B4442F;
+  --on-green:#F1F7F3; --chip:#DCEBE2;
+  --display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
+  --body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1714; --surface:#15221D; --surface-2:#1C2D26; --ink:#E4EEE8; --muted:#9DB0A6; --line:#2C3F37;
+    --green:#3FA383; --green-2:#58BD9B; --gold:#D9A94A; --gold-soft:#3A3120; --up:#4CC486; --down:#E0775F;
+    --on-green:#0C1512; --chip:#213A30;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1714; --surface:#15221D; --surface-2:#1C2D26; --ink:#E4EEE8; --muted:#9DB0A6; --line:#2C3F37;
+  --green:#3FA383; --green-2:#58BD9B; --gold:#D9A94A; --gold-soft:#3A3120; --up:#4CC486; --down:#E0775F;
+  --on-green:#0C1512; --chip:#213A30;
+}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15.5px;line-height:1.55;margin:0}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:20px;padding-block:0 56px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;letter-spacing:-.01em}
+a{color:var(--green-2)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.bar{background:var(--green);color:var(--on-green);border-bottom:3px solid var(--gold)}
+.bar .in{max-width:1120px;margin:0 auto;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:17px}
+.seal{width:34px;height:34px;border-radius:50%;background:var(--paper);color:var(--green);display:grid;place-items:center;font-family:var(--mono);font-size:10.5px;font-weight:600;border:2px solid var(--gold)}
+.bar nav{display:flex;gap:16px;flex-wrap:wrap;font-size:14px}
+.bar nav a{color:var(--on-green);text-decoration:none;opacity:.9}
+header.hero{padding-block:44px 28px;display:grid;gap:14px}
+header.hero h1{font-size:clamp(34px,5.6vw,64px);font-weight:800;line-height:1}
+header.hero p{font-size:18px;color:var(--muted);max-width:62ch;margin:0}
+.links{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:10px}
+.lk{background:var(--surface);border:1.5px solid var(--ink);border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--ink);display:grid;gap:4px}
+.lk:hover{background:var(--surface-2)}
+.lk b{font-family:var(--display);font-size:18px}
+.lk span{font-family:var(--mono);font-size:11.5px;color:var(--muted);word-break:break-all}
+.lk.primary{background:var(--green);color:var(--on-green);border-color:var(--green)}
+.lk.primary span{color:var(--on-green);opacity:.85}
+section{padding-block:40px;border-top:1px solid var(--line)}
+.sh{display:grid;gap:6px;margin-bottom:20px;max-width:70ch}
+.sh h2{font-size:clamp(26px,3.4vw,38px);font-weight:800;line-height:1.05}
+.sh p{margin:0;color:var(--muted)}
+.video{display:grid;grid-template-columns:1.7fr 1fr;gap:18px;align-items:start}
+video{width:100%;border-radius:12px;border:1.5px solid var(--ink);background:#000;display:block;aspect-ratio:16/9}
+.chap{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.chap ol{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.chap button{width:100%;display:flex;gap:12px;align-items:baseline;background:none;border:0;padding:7px 6px;border-radius:6px;text-align:left;color:var(--ink);font:inherit;cursor:pointer}
+.chap button:hover,.chap button:focus-visible{background:var(--surface-2);outline:none}
+.chap .t{font-family:var(--mono);font-size:12.5px;color:var(--gold);min-width:36px;font-variant-numeric:tabular-nums}
+.step{display:grid;grid-template-columns:1.45fr 1fr;gap:22px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:16px}
+.step figure{margin:0;border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+.step img{display:block;width:100%;height:auto;cursor:zoom-in}
+.step .k{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.step h3{font-size:24px;font-weight:800;margin:4px 0 10px}
+.step dl{margin:0;display:grid;gap:4px}
+.step dt{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.step dd{margin:0}
+.step dd.pain{background:var(--gold-soft);border-left:3px solid var(--gold);padding:6px 10px;border-radius:0 6px 6px 0;font-size:14px}
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.gal figure{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.gal img{display:block;width:100%;height:220px;object-fit:cover;object-position:top;cursor:zoom-in}
+.gal figcaption{padding:10px 12px;font-size:13.5px;border-top:1px solid var(--line)}
+.mob{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start}
+.mob figure{margin:0;width:min(260px,100%)}
+.mob img{width:100%;border-radius:22px;border:6px solid var(--ink);display:block}
+.mob figcaption{font-size:13px;color:var(--muted);margin-top:6px;text-align:center}
+.mobtxt{flex:1;min-width:240px;display:grid;gap:10px;align-content:start}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px dashed var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-bottom:1.5px solid var(--ink);font-weight:500}
+td:first-child{font-weight:600;white-space:nowrap}
+.tw{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px 10px}
+.try{counter-reset:s;list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.try li{counter-increment:s;display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.try li::before{content:counter(s);width:28px;height:28px;border-radius:50%;background:var(--green);color:var(--on-green);display:grid;place-items:center;font-family:var(--mono);font-weight:600;font-size:13px}
+.note{font-size:13.5px;color:var(--muted);background:var(--surface-2);border-radius:10px;padding:12px 14px;margin-top:16px}
+code{font-family:var(--mono);font-size:13px;background:var(--surface-2);padding:1px 6px;border-radius:4px}
+dialog{border:0;padding:0;background:transparent;max-width:min(1200px,94vw)}
+dialog::backdrop{background:rgba(8,14,12,.82)}
+dialog img{width:100%;height:auto;display:block;border-radius:10px}
+dialog form{text-align:right;margin-bottom:8px}
+dialog button{background:var(--gold);border:0;border-radius:6px;padding:6px 12px;font:inherit;font-weight:600;cursor:pointer}
+@media (max-width:860px){ .links{grid-template-columns:1fr 1fr} .video,.step{grid-template-columns:1fr} .gal{grid-template-columns:1fr 1fr} }
+@media (max-width:480px){ .links,.gal{grid-template-columns:1fr} }
+</style>
+
+</head><body>
+<div class="bar"><div class="in">
+  <div class="brand"><span class="seal">TEE</span>The Experience Exchange</div>
+  <nav><a href="#video">Video</a><a href="#walk">Walkthrough</a><a href="#screens">Screens</a><a href="#tech">Tech</a><a href="#test">Test it</a></nav>
+</div></div>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Prototype evidence · Principled Innovation Academy</div>
+    <h1>It works. Here's the proof.</h1>
+    <p>The Experience Exchange is a working website and clickable prototype. Below: the live link, a 52-second video walkthrough, annotated screenshots of every step, phone views, the code repo, and a 2-minute script to test it yourself.</p>
+    <div class="links">
+      <a class="lk primary" href="https://claude.ai/artifact/Stzn7bBtGhn15XTJYY2FH5" target="_blank" rel="noopener"><b>Live website ↗</b><span>Open the working prototype</span></a>
+      <a class="lk" href="#video"><b>Video walkthrough</b><span>52 seconds · full flow</span></a>
+      <a class="lk" href="https://github.com/YOUR-USERNAME/experience-exchange" target="_blank" rel="noopener" id="repoLink"><b>GitHub repo ↗</b><span>github.com/YOUR-USERNAME/experience-exchange</span></a>
+      <a class="lk" href="#walk"><b>Annotated screens</b><span>4 steps · 10 screenshots</span></a>
+    </div>
+  </header>
+
+  <section id="video">
+    <div class="sh"><div class="eyebrow">Video walkthrough</div><h2>The full member journey in 52 seconds.</h2><p>A recorded run of the live site: homepage, research, and all four prototype steps, clicked through as sample member Maya.</p></div>
+    <div class="video">
+      <video id="vid" controls playsinline preload="metadata" poster="shots/poster.jpg"><source src="walkthrough.mp4" type="video/mp4"></video>
+      <div class="chap"><span class="eyebrow">Chapters</span>
+        <ol>
+          <li><button data-t="0"><span class="t">0:00</span>Homepage and house rule</button></li>
+          <li><button data-t="5"><span class="t">0:05</span>The problem: interview evidence</button></li>
+          <li><button data-t="8"><span class="t">0:08</span>How the bank works</button></li>
+          <li><button data-t="13"><span class="t">0:13</span>Step 1 · Anti-Resume appraisal</button></li>
+          <li><button data-t="22"><span class="t">0:22</span>Step 2 · Vault deposit and follow-up</button></li>
+          <li><button data-t="29"><span class="t">0:29</span>Step 3 · Trade match and Skill Heist</button></li>
+          <li><button data-t="35"><span class="t">0:35</span>Step 4 · Market Day timer and scorecard</button></li>
+          <li><button data-t="45"><span class="t">0:45</span>Why it's new, PI, and launch plan</button></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section id="walk">
+    <div class="sh"><div class="eyebrow">Feature walkthrough</div><h2>What each step does, and why.</h2><p>Every screenshot is the real prototype after the interaction described. Tap any image to enlarge.</p></div>
+    <article class="step">
+  <figure><img src="shots/04-step1-anti-resume.png" alt="Screenshot of Anti-Resume Night in the prototype" loading="lazy"></figure>
+  <div class="txt"><span class="k">Step 1 · Appraise</span><h3>Anti-Resume Night</h3>
+    <dl><dt>What you do</dt><dd>Maya types the experience she'd normally hide. The appraiser taps "Listen for skills," and cards the story points to light up gold.</dd><dt>What happens</dt><dd>Each tapped card writes a line of the read-back ("Maya, what I hear is…") and a drafted resume bullet. Maya never picks her own cards.</dd><dt>Pain point it answers</dt><dd class="pain">"I'm very unsure about myself" · "Other people see my strengths better than I do"</dd></dl></div>
+</article><article class="step">
+  <figure><img src="shots/05-step2-vault-deposit.png" alt="Screenshot of The Vault in the prototype" loading="lazy"></figure>
+  <div class="txt"><span class="k">Step 2 · Deposit</span><h3>The Vault</h3>
+    <dl><dt>What you do</dt><dd>Maya answers the Friday prompt, "What did you handle this week?" The Vault replies with one follow-up question.</dd><dt>What happens</dt><dd>Her two answers are tagged with skills, credited to her balance, added as a new step on the staircase chart, and logged in the Vault statement.</dd><dt>Pain point it answers</dt><dd class="pain">"If I remember it, that's enough" · most students keep no system</dd></dl></div>
+</article><article class="step">
+  <figure><img src="shots/06-step3-trade-heist-receipt.png" alt="Screenshot of Ticker & Skill Heists in the prototype" loading="lazy"></figure>
+  <div class="txt"><span class="k">Step 3 · Trade</span><h3>Ticker & Skill Heists</h3>
+    <dl><dt>What you do</dt><dd>Maya chooses a skill to teach and one to learn, then joins a 72-hour Heist on a campus problem.</dd><dt>What happens</dt><dd>The board finds a trade partner and a time. Joining a Heist fills a seat and prints a signed Skill Receipt listing the skills she demonstrated.</dd><dt>Pain point it answers</dt><dd class="pain">Rejected for "no relevant experience"</dd></dl></div>
+</article><article class="step">
+  <figure><img src="shots/07-step4-market-day.png" alt="Screenshot of Market Day in the prototype" loading="lazy"></figure>
+  <div class="txt"><span class="k">Step 4 · Cash out</span><h3>Market Day</h3>
+    <dl><dt>What you do</dt><dd>Maya rings the bell and pitches for 60 seconds, first to a peer, then to a recruiter.</dd><dt>What happens</dt><dd>Her pitch card builds itself from steps 1 to 3 (Context, Action, Result, Reflection). The timer runs two rounds, and the listener's scorecard tracks four checks.</dd><dt>Pain point it answers</dt><dd class="pain">Nervous presenting to groups · "How do I explain this so an employer sees its value?"</dd></dl></div>
+</article>
+  </section>
+
+  <section id="screens">
+    <div class="sh"><div class="eyebrow">The website</div><h2>More than a prototype: a full site.</h2></div>
+    <div class="gal">
+      <figure><img src="shots/01-homepage.png" alt="Homepage" loading="lazy"><figcaption><b>Homepage.</b> "You're not broke. You just never counted." with a sample Vault statement.</figcaption></figure>
+      <figure><img src="shots/02-problem-evidence.png" alt="Problem section" loading="lazy"><figcaption><b>The problem.</b> Quotes from our 11-student listening sessions and the NACE confidence gap.</figcaption></figure>
+      <figure><img src="shots/03-how-it-works.png" alt="How it works section" loading="lazy"><figcaption><b>How it works.</b> Four steps, each tied to a pain point we heard.</figcaption></figure>
+    </div>
+    <div class="gal" style="margin-top:14px;grid-template-columns:1fr">
+      <figure><img src="shots/08-why-its-new.png" alt="Why it's new section" loading="lazy" style="height:auto"><figcaption><b>Why it's new.</b> The four rules no other ASU club uses.</figcaption></figure>
+    </div>
+    <div class="mob" style="margin-top:22px">
+      <figure><img src="shots/09-mobile-homepage.png" alt="Homepage on a phone" loading="lazy"><figcaption>Homepage on a phone</figcaption></figure>
+      <figure><img src="shots/10-mobile-prototype.png" alt="Prototype on a phone" loading="lazy"><figcaption>Prototype on a phone</figcaption></figure>
+      <div class="mobtxt"><h3 style="font-size:22px">Built for students on the go.</h3><p style="margin:0;color:var(--muted)">The site is fully responsive down to phone width, because the weekly deposit is meant to take two minutes on a phone between classes or shifts. It also follows the viewer's light or dark theme.</p></div>
+    </div>
+  </section>
+
+  <section id="tech">
+    <div class="sh"><div class="eyebrow">Under the hood</div><h2>Simple enough to launch this semester.</h2></div>
+    <div class="tw"><table>
+      <thead><tr><th>Item</th><th>Detail</th></tr></thead>
+      <tbody>
+        <tr><td>Build</td><td>One self-contained <code>index.html</code>: HTML, CSS, and vanilla JavaScript. No framework, no build step, no dependencies.</td></tr>
+        <tr><td>Size</td><td>About 52 KB. Loads instantly on campus Wi-Fi or mobile data.</td></tr>
+        <tr><td>Interactive features</td><td>Skill-card appraisal with keyword matching, auto-drafted resume bullets, chat-style deposits with follow-up questions, live skill staircase chart, Vault ledger, trade matching, Heist seat booking, printable Skill Receipt, auto-built pitch card, 60-second two-round timer with bell, listener scorecard.</td></tr>
+        <tr><td>Accessibility</td><td>Keyboard-navigable tabs (arrow keys), visible focus states, labeled form controls, live regions for chat and receipts, reduced-motion support.</td></tr>
+        <tr><td>Themes and devices</td><td>Light and dark themes; responsive layout down to about 390px wide.</td></tr>
+        <tr><td>Hosting</td><td>Works on GitHub Pages, Netlify, or any static host. Also runs by opening the file directly.</td></tr>
+        <tr><td>Data</td><td>All member data, campus clients, and signatures are samples. No personal data is collected.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="test">
+    <div class="sh"><div class="eyebrow">Test it yourself</div><h2>A 2-minute script for judges.</h2></div>
+    <ol class="try">
+      <li><span>Open the <a href="https://claude.ai/artifact/Stzn7bBtGhn15XTJYY2FH5" target="_blank" rel="noopener">live website</a> and tap <b>Try the prototype</b>.</span></li>
+      <li><span><b>Step 1:</b> tap <b>Appraiser: listen for skills</b>, then tap any gold-edged card. Watch the read-back and resume bullets rewrite themselves.</span></li>
+      <li><span><b>Step 2:</b> tap <b>Send</b> twice. The Vault asks a follow-up, credits skills, and adds a new step to the staircase.</span></li>
+      <li><span><b>Step 3:</b> tap <b>Find a match</b>, then <b>Join this Heist</b>. A signed Skill Receipt appears.</span></li>
+      <li><span><b>Step 4:</b> read the pitch card built from steps 1 to 3, then tap <b>Ring the bell</b> and start the 60-second round.</span></li>
+    </ol>
+    <p class="note">Everything shown uses a sample member, Maya R. Campus clients and signatures are examples that illustrate how partnerships would work once the club launches.</p>
+  </section>
+</div>
+
+<dialog id="zoom"><form method="dialog"><button>Close</button></form><img id="zoomImg" alt=""></dialog>
+<script>
+(function(){
+  var v=document.getElementById('vid');
+  document.querySelectorAll('.chap button').forEach(function(b){ b.addEventListener('click',function(){ try{ v.currentTime=+b.dataset.t; v.play(); }catch(e){} v.scrollIntoView({block:'center'}); }); });
+  var d=document.getElementById('zoom'), zi=document.getElementById('zoomImg');
+  document.querySelectorAll('.step img,.gal img').forEach(function(im){ im.addEventListener('click',function(){ zi.src=im.src; zi.alt=im.alt; if(d.showModal) d.showModal(); }); });
+  d.addEventListener('click',function(e){ if(e.target===d) d.close(); });
+})();
+</script>
+</body></html>
